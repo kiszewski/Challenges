@@ -1,5 +1,5 @@
 import 'package:test/test.dart';
-import '../challenges/alphabet_symmetry.dart';
+import '../challenges/alphabetSymmetry.dart';
 
 main(List<String> args) {
   void testing(List<String> textList, List<int> expected) {
