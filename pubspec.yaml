@@ -1,0 +1,4 @@
+name: my_app
+
+dev_dependencies:
+  test: ^1.15.3
