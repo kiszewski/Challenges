@@ -1,20 +1,28 @@
 class MyElement {
   bool head = false;
   bool tail = false;
-  MyElement nextNode = null;
-  MyElement previousNode = null;
+  MyElement? nextNode = null;
+  MyElement? previousNode = null;
 
   final String text;
 
-  MyElement(this.text) {}
+  MyElement(this.text);
+
+  MyElement copy() {
+    return MyElement(text)
+      ..head = this.head
+      ..tail = this.tail
+      ..nextNode = this.nextNode
+      ..previousNode = this.previousNode;
+  }
 }
 
 class MyLinkedList {
-  MyElement actualNode = null;
+  MyElement? actualNode = null;
 
   int _length = 0;
 
-  MyLinkedList({MyElement node}) {
+  MyLinkedList({required MyElement node}) {
     addNode(node);
   }
 
@@ -25,8 +33,8 @@ class MyLinkedList {
       actualNode = node;
       this._length++;
     } else {
-      this.actualNode.nextNode = node;
-      this.actualNode.tail = false;
+      this.actualNode?.nextNode = node;
+      this.actualNode?.tail = false;
       node.previousNode = actualNode;
       node.tail = true;
       this.actualNode = node;
@@ -54,43 +62,45 @@ class MyLinkedList {
   // }
 
   printNodes() {
-    if (actualNode == null) {
+    var newNode = actualNode?.copy();
+
+    if (newNode == null) {
       print('List is empty');
-    } else if (actualNode.head == true) {
-      while (actualNode != false) {
-        print(actualNode.text);
-        actualNode = actualNode.nextNode;
+    } else if (newNode.head == true) {
+      while (newNode != null) {
+        print(newNode.text);
+        newNode = newNode.nextNode;
       }
-    } else if (actualNode.tail) {
-      while (!actualNode.head) {
-        actualNode = actualNode.previousNode;
+    } else if (newNode.tail == true) {
+      while (newNode?.head == false) {
+        newNode = newNode?.previousNode;
       }
-      while (actualNode != null) {
-        print(actualNode.text);
-        actualNode = actualNode.nextNode;
+      while (newNode != null) {
+        print(newNode.text);
+        newNode = newNode.nextNode;
       }
     }
   }
 
   reverseLinkedList() {
-    while (!actualNode.head) {
-      if (actualNode.tail == true) {
-        actualNode.tail = false;
-        actualNode.head = true;
+    while (actualNode?.head == false) {
+      if (actualNode?.tail == true) {
+        actualNode?.tail = false;
+        actualNode?.head = true;
       }
-      MyElement prev = actualNode.previousNode;
-      actualNode.previousNode = actualNode.nextNode;
-      actualNode.nextNode = prev;
+      MyElement? prev = actualNode?.previousNode;
+      actualNode?.previousNode = actualNode?.nextNode;
+      actualNode?.nextNode = prev;
 
       actualNode = prev;
     }
 
-    if (actualNode.head) {
-      actualNode.head = false;
-      actualNode.tail = true;
-      MyElement prev = actualNode.previousNode;
-      actualNode.previousNode = actualNode.nextNode;
-      actualNode.nextNode = prev;
+    if (actualNode?.head == true) {
+      actualNode?.head = false;
+      actualNode?.tail = true;
+      MyElement? prev = actualNode?.previousNode;
+      actualNode?.previousNode = actualNode?.nextNode;
+      actualNode?.nextNode = prev;
     }
   }
 }
@@ -106,7 +116,7 @@ main(List<String> args) {
   list.addNode(MyElement('6'));
 
   list.reverseLinkedList();
-  list.reverseLinkedList();
+  list.printNodes();
   list.printNodes();
   // list.printReverse();
 }
