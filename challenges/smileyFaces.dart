@@ -1,6 +1,5 @@
 abstract class Face {
-  static List<String> _validElements;
-  static bool validate(String element) {}
+  static bool validate(String element) => false;
 }
 
 class Eye extends Face {
@@ -27,21 +26,22 @@ int countSmileyFaces(List smileyList) {
 
     final List<String> smileyFaceList = smileyFace.split('');
 
-    if(smileyFaceList.length == 2) {
+    if (smileyFaceList.length == 2) {
       eye = smileyFaceList[0];
       mouth = smileyFaceList[1];
-    } else if(smileyFaceList.length == 3) {
+    } else if (smileyFaceList.length == 3) {
       eye = smileyFaceList[0];
       nose = smileyFaceList[1];
       mouth = smileyFaceList[2];
-    } else return false;
+    } else
+      return false;
 
-    if(!Eye.validate(eye)) return false;
-    if(!Mouth.validate(mouth)) return false;
+    if (!Eye.validate(eye)) return false;
+    if (!Mouth.validate(mouth)) return false;
 
-    if(nose != '') {
-      if(!Nose.validate(nose)) return false;
-    } 
+    if (nose != '') {
+      if (!Nose.validate(nose)) return false;
+    }
 
     return true;
   }
@@ -49,6 +49,6 @@ int countSmileyFaces(List smileyList) {
   smileyList.forEach((smileyFace) {
     isValidSmileyFace(smileyFace) ? counter++ : null;
   });
-  
+
   return counter;
 }
